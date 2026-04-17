@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-sans: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Menlo", monospace;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+html,
+body {
+  background: #faf7f2;
+  color: #0a0a0a;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #d4541c;
+  color: #faf7f2;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.score-ring {
+  --p: 0;
+  --size: 140px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background:
+    conic-gradient(#d4541c calc(var(--p) * 1%), #e8e3da 0);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.score-ring::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: #faf7f2;
+}
+
+.score-ring > span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 400;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
